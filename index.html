@@ -92,14 +92,14 @@
   }
 
   /* Game Board */
-  #gameBoard { display: grid; gap: 8px; perspective: 1000px; margin-bottom: 20px; }
+  #gameBoard { display: grid; gap: 6px; perspective: 1000px; margin-bottom: 20px; width: min(96vw, 560px); box-sizing: border-box; justify-content: center; }
 
   .card {
-    width: min(20vw, 65px);
-    height: min(20vw, 65px);
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
+  width: var(--card-size, 65px);
+  height: var(--card-size, 65px);
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
   }
 
   .card.revealed { transform: rotateY(180deg); }
@@ -112,7 +112,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(20px, 6vw, 30px);
+    font-size: var(--emoji-size, 28px);
     border-radius: 6px;
     border: 1px solid rgba(0, 243, 255, 0.4);
   }
@@ -177,7 +177,12 @@ function startGame(size) {
   
   totalPairs = (size * size) / 2;
   board.style.gridTemplateColumns = `repeat(${size}, auto)`;
-
+  const available = Math.min(window.innerWidth * 0.96, 560);
+  const cardPx    = Math.min(65, Math.floor((available - 6 * (size - 1) - 8) / size));
+  const emojiPx   = Math.max(14, Math.floor(cardPx * 0.45));
+  board.style.setProperty('--card-size',  cardPx  + 'px');
+  board.style.setProperty('--emoji-size', emojiPx + 'px');
+  
   let gameSymbols = symbols.slice(0, totalPairs);
   let cardsData = [...gameSymbols, ...gameSymbols].sort(() => Math.random() - 0.5);
 
@@ -283,6 +288,16 @@ function showLeaderboard() {
     });
   }
 }
+
+window.addEventListener('resize', () => {
+  const board = document.getElementById("gameBoard");
+  if (!board.children.length) return;
+  const available = Math.min(window.innerWidth * 0.96, 560);
+  const cardPx    = Math.min(65, Math.floor((available - 6 * (currentLevel - 1) - 8) / currentLevel));
+  const emojiPx   = Math.max(14, Math.floor(cardPx * 0.45));
+  board.style.setProperty('--card-size',  cardPx  + 'px');
+  board.style.setProperty('--emoji-size', emojiPx + 'px');
+});
 
 // Particles
 const canvas = document.getElementById('bg-canvas');

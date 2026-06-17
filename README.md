@@ -2,7 +2,7 @@
 
 A sleek, responsive, web-based memory match game built from scratch. This project demonstrates interactive frontend logic, dynamic DOM manipulation, and state tracking wrapped in a clean, modern, and distraction-free user interface.
 
-**Live Demo:**:https://memory-game-tau-coral.vercel.app/
+**Live Demo:** https://memory-game-tau-coral.vercel.app/
 
 # Features
 

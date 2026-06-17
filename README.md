@@ -23,7 +23,7 @@ To explore the project locally, clone the repository and open the entry point fi
 
 ```bash
 # Clone the repository
-git clone [https://github.com/pseal/memory-game.git](https://github.com/pseal/memory-game.git)
+git clone https://github.com/pseal/memory-game.git
 
 # Navigate into the project directory
 cd memory-game
